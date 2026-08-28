@@ -5,6 +5,8 @@ vacancies. It collects postings from HTML job boards and RSS feeds, enriches spa
 records from detail pages, removes duplicates, scores fit, and produces a weekly digest.
 A failing source is reported without stopping the other sources.
 
+Vibe-coded. 
+
 ## What it can do
 
 - Collect live vacancies from multiple job boards and optional RSS feeds.
