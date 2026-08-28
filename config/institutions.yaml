@@ -1,0 +1,6 @@
+# Add institutions only when you intentionally want them to receive a score bonus.
+# Example:
+# priority_universities:
+#   - name: Example University
+#     aliases: [Example U]
+priority_universities: []

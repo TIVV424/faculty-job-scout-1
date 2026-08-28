@@ -1,0 +1,100 @@
+sources:
+  job_boards:
+    enabled: true
+    sources:
+      - name: AcademicJobsOnline
+        url: "https://academicjobsonline.org/ajo/job"
+        source_type: html_search
+        priority: high
+        tags: [global, academic]
+
+      - name: Academic Positions
+        url: "https://academicpositions.com/jobs/position/tenure-track?page=1"
+        source_type: html_search
+        priority: high
+        tags: [global, faculty, tenure_track]
+
+      - name: EURAXESS Jobs
+        url: "https://euraxess.ec.europa.eu/jobs"
+        source_type: html_search
+        priority: high
+        tags: [europe, faculty, research]
+
+      - name: AcademicTransfer Netherlands
+        url: "https://www.academictransfer.com/en/jobs/"
+        source_type: html_search
+        priority: high
+        country: Netherlands
+        region: eu
+        tags: [netherlands, europe, academic]
+
+      - name: Times Higher Education Jobs
+        url: "https://www.timeshighereducation.com/unijobs/"
+        source_type: html_search
+        priority: medium
+        tags: [global, academic]
+
+      - name: jobs.ac.uk Engineering and Technology
+        url: "https://www.jobs.ac.uk/search/engineering-and-technology"
+        source_type: html_search
+        priority: medium
+        tags: [uk, europe, engineering]
+
+      - name: jobs.ac.uk Computer Sciences
+        url: "https://www.jobs.ac.uk/search/computer-sciences"
+        source_type: html_search
+        priority: medium
+        tags: [uk, europe, computer_science]
+
+      - name: jobs.ac.uk Business and Management Studies
+        url: "https://www.jobs.ac.uk/search/business-and-management-studies"
+        source_type: html_search
+        priority: medium
+        tags: [uk, europe, business]
+
+      - name: Inside Higher Ed Careers
+        url: "https://careers.insidehighered.com/jobs/"
+        source_type: html_search
+        priority: medium
+        tags: [us, academic]
+
+      - name: Chronicle Jobs
+        url: "https://jobs.chronicle.com/jobs/"
+        source_type: html_search
+        priority: medium
+        tags: [us, academic]
+
+      - name: Academic Keys
+        url: "https://academickeys.com/"
+        source_type: html_search
+        priority: medium
+        tags: [global, academic]
+
+      - name: Engineeroxy
+        url: "https://engineeroxy.com/"
+        source_type: html_search
+        priority: low
+        tags: [global, engineering]
+
+      - name: Computeroxy
+        url: "https://computeroxy.com/"
+        source_type: html_search
+        priority: low
+        tags: [global, computer_science]
+
+  # Dry runs use bundled demonstration postings when this section is enabled.
+  # Live official-page scraping is not implemented yet.
+  official_pages:
+    enabled: true
+    pages: []
+
+  # Add individual vacancy URLs here when you want them tracked explicitly.
+  target_positions:
+    enabled: false
+    positions: []
+
+  # RSS parsing is supported. Add field-specific feeds and enable this section.
+  rss:
+    enabled: false
+    user_agent: "faculty-job-scout/0.1"
+    feeds: []

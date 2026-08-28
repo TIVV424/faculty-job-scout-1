@@ -1,0 +1,86 @@
+newsletter:
+  include_categories_main:
+    - A
+    - B
+  include_category_c_if_priority_institution: true
+  include_category_d: false
+  subject_template: "Faculty Job Scout: {num_new} new postings, {num_strong} strong fits"
+  max_jobs_per_section: 20
+
+deadline_reminders:
+  reminder_window_days: 14
+  urgent_window_days: 7
+
+regions:
+  include:
+    us: true
+    canada: true
+    uk: true
+    eu: true
+    switzerland: true
+    nordics: true
+    australia: true
+    hong_kong: true
+    singapore: true
+    mainland_china: true
+    middle_east: true
+
+scoring:
+  role_weights:
+    assistant_professor: 0.30
+    tenure_track_assistant_professor: 0.30
+    lecturer_ap_equivalent: 0.30
+    faculty_fellowship: 0.30
+    prestigious_postdoc_fellowship: 0.18
+    regular_postdoc: -0.25
+    teaching_only: -0.25
+    open_rank: 0.30
+    associate_professor_eu_tt_equivalent: 0.30
+    business_school_adjacent: 0.10
+    other: -0.25
+  high_value_per_hit: 0.06
+  max_high_value_bonus: 0.35
+  medium_value_per_hit: 0.035
+  max_medium_value_bonus: 0.18
+  tenure_bonus: 0.06
+  priority_institution_bonus: 0.10
+  included_region_bonus: 0.08
+  excluded_region_penalty: 0.25
+  negative_per_hit: 0.10
+  max_negative_penalty: 0.35
+  part_time_penalty: 0.25
+  lower_priority_score_cap: 54
+
+outputs:
+  sqlite:
+    enabled: true
+    path: data/faculty_jobs.sqlite
+  csv:
+    enabled: true
+    path: data/faculty_jobs.csv
+  markdown_summary:
+    enabled: true
+    path: data/latest_run_summary.md
+
+email:
+  enabled: true
+  smtp_host: smtp.gmail.com
+  smtp_port: 587
+  use_tls: true
+
+openai:
+  enabled: true
+  api_key_env_var: OPENAI_API_KEY
+  model: gpt-5.6-luna
+  min_rule_score_for_llm: 0.35
+
+scraping:
+  user_agent: "faculty-job-scout/0.1"
+  request_timeout_seconds: 30
+  delay_between_requests_seconds: 2
+  respect_robots_txt: true
+  max_detail_pages_per_source: 25
+
+deduplication:
+  fuzzy_title_threshold: 0.90
+  fuzzy_institution_threshold: 0.90

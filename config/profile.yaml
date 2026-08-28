@@ -1,0 +1,21 @@
+# Replace this example with a concise description of your own research profile.
+profile:
+  summary: >-
+    Early-career researcher using computational and data-driven methods to study
+    complex systems. Interested in research-intensive faculty positions that
+    combine methodological development, collaboration, teaching, and real-world
+    applications.
+  interests:
+    application_domains:
+      - complex systems
+      - decision support
+      - sustainable technology
+    methods:
+      - optimization
+      - machine learning
+      - statistical modeling
+      - simulation
+    cross_cutting_themes:
+      - interdisciplinary research
+      - reproducible science
+      - societal impact

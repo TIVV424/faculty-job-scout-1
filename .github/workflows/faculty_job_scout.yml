@@ -1,0 +1,87 @@
+name: Faculty Job Scout
+
+on:
+  workflow_dispatch:
+    inputs:
+      run_mode:
+        description: What should Faculty Job Scout run?
+        required: true
+        default: collect-only
+        type: choice
+        options:
+          - collect-only
+          - email-test
+          - llm-test
+          - full-run
+  schedule:
+    # GitHub Actions schedules are UTC. Adjust this before enabling a public fork.
+    - cron: "0 14 * * 5"
+
+jobs:
+  scout:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    env:
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      # Gmail SMTP values are available to both the test command and scheduled run.
+      GMAIL_SENDER_EMAIL: ${{ secrets.GMAIL_SENDER_EMAIL }}
+      GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+      NEWSLETTER_RECIPIENT_EMAIL: ${{ secrets.NEWSLETTER_RECIPIENT_EMAIL }}
+
+    steps:
+      - name: Validate Gmail secrets
+        if: ${{ github.event_name == 'schedule' || inputs.run_mode == 'email-test' || inputs.run_mode == 'full-run' }}
+        shell: bash
+        run: |
+          missing=()
+          for name in GMAIL_SENDER_EMAIL GMAIL_APP_PASSWORD NEWSLETTER_RECIPIENT_EMAIL; do
+            if [[ -z "${!name:-}" ]]; then
+              missing+=("$name")
+            fi
+          done
+          if (( ${#missing[@]} )); then
+            joined=$(IFS=,; echo "${missing[*]}")
+            echo "::error::Missing required GitHub Actions secrets: $joined"
+            exit 1
+          fi
+
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[dev]"
+
+      - name: Run tests
+        run: pytest
+
+      - name: Test OpenAI API
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.run_mode == 'llm-test' }}
+        run: python -m faculty_job_scout.main --test-llm
+
+      - name: Send Gmail SMTP test email
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.run_mode == 'email-test' }}
+        run: python -m faculty_job_scout.main --test-email
+
+      - name: Run scout
+        if: ${{ github.event_name == 'schedule' || inputs.run_mode == 'full-run' }}
+        run: python -m faculty_job_scout.main --once
+
+      - name: Collect live sources without API calls or email
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.run_mode == 'collect-only' }}
+        run: python -m faculty_job_scout.main --dry-run --no-email --live-sources
+
+      - name: Upload CSV artifact
+        if: ${{ github.event_name == 'schedule' || inputs.run_mode == 'full-run' || inputs.run_mode == 'collect-only' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: faculty-jobs-csv
+          path: data/faculty_jobs.csv
+          if-no-files-found: warn

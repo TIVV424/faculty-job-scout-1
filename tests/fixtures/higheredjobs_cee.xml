@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>HigherEdJobs - Civil and Environmental Engineering</title>
+    <item>
+      <title>Assistant Professor of Transportation Engineering</title>
+      <link>https://www.higheredjobs.com/details.cfm?JobCode=178999999</link>
+      <description>Example State University (Ann Arbor, MI)</description>
+      <pubDate>Thu, 18 Jun 2026 12:00:00 GMT</pubDate>
+      <guid>178999999</guid>
+    </item>
+    <item>
+      <title>Tenure-Track Faculty in Sustainable Infrastructure</title>
+      <link>https://www.higheredjobs.com/details.cfm?JobCode=178999998</link>
+      <description>Example Technical University (Guangzhou, China)</description>
+      <pubDate>Wed, 17 Jun 2026 08:30:00 GMT</pubDate>
+      <guid>178999998</guid>
+    </item>
+  </channel>
+</rss>

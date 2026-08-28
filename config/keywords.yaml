@@ -1,0 +1,15 @@
+# These are neutral examples. Replace them with terms from your own field.
+high_value:
+  - optimization
+  - machine learning
+  - data science
+  - statistical modeling
+  - simulation
+  - computational methods
+medium_value:
+  - interdisciplinary
+  - decision support
+  - complex systems
+  - sustainability
+  - applied research
+negative: []
